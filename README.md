@@ -51,7 +51,7 @@ curl -X POST http://localhost:3000/api/products \
   -d '{"name":"Apple","quantity":10,"price":50}'
 ```
 
-> Note: the MongoDB connection string is currently hardcoded in `index.js`. It works, but move it to an env var before any real use.
+> The MongoDB connection string now comes from the `MONGODB_URI` environment variable (see `.env.example`). Run with `MONGODB_URI='<your-uri>' npm run dev`. **If you ever used the old hardcoded password anywhere else, rotate it in MongoDB Atlas** — the old string is still visible in this repo's git history.
 
 ## Screenshots
 
@@ -59,8 +59,8 @@ No UI — this is an API backend. The banner above is the visual.
 
 ## What you can add more
 
-- [ ] Move the MongoDB URI to an environment variable — credentials are currently hardcoded in `index.js` (security issue)
-- [ ] Fix the schema option `Timestamp: true` → `timestamps: true` — the capitalised version is ignored, so no createdAt/updatedAt are stored
+- [x] ~~Move the MongoDB URI to an environment variable~~ — done 2026-10-08: `index.js` reads `MONGODB_URI`; `.env.example` + `.gitignore` added (rotate the old password in Atlas — it's still in git history)
+- [x] ~~Fix the schema option `Timestamp: true` → `timestamps: true`~~ — done 2026-10-08: createdAt/updatedAt are now stored
 - [ ] Add a `start` script (`node index.js`) — only `dev` (nodemon) exists, so production has no entry point
 - [ ] Add request validation (e.g. zod or express-validator) — currently any JSON body is accepted
 - [ ] Add basic tests (supertest + an in-memory MongoDB) — no tests exist

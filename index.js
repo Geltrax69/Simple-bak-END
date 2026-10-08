@@ -16,7 +16,13 @@ app.get('/', (req, res) => {
   res.send('Working');
 });
 
-mongoose.connect('mongodb+srv://geltrax:geltrax@backenddb.rcjaxqv.mongodb.net/NODE-API?retryWrites=true&w=majority&appName=BackendDB')
+const mongoUri = process.env.MONGODB_URI;
+if (!mongoUri) {
+  console.error('MONGODB_URI is not set. Copy .env.example to .env and fill it in, or export MONGODB_URI.');
+  process.exit(1);
+}
+
+mongoose.connect(mongoUri)
  .then(() => {
     console.log('Connected!')
     app.listen(3000, () => {
